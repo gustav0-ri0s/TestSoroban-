@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ProblemSet } from '../types';
+import confetti from 'canvas-confetti';
 
 interface ResultViewProps {
   problemSet: ProblemSet;
@@ -18,19 +19,14 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish }
     inputRef.current?.focus();
   }, []);
 
-  const triggerConfetti = async () => {
-    try {
-      const { default: confetti } = await import('https://esm.sh/canvas-confetti');
-      confetti({
-        particleCount: 150,
-        spread: 80,
-        origin: { y: 0.6 },
-        colors: ['#10b981', '#059669', '#34d399', '#ffffff', '#fbbf24'],
-        ticks: 300
-      });
-    } catch (e) {
-      console.error("No se pudo cargar el confeti", e);
-    }
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ['#10b981', '#059669', '#34d399', '#ffffff', '#fbbf24'],
+      ticks: 300
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
