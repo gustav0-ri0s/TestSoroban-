@@ -122,7 +122,7 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
 
   return (
     <div className="max-w-3xl mx-auto p-6 animate-fadeIn">
-      <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-50">
+      <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-gray-50">
         {!submitted ? (
           <form onSubmit={handleSubmit} className="space-y-8">
             <h2 className="text-3xl font-bold text-center text-gray-800">¿Cuál es el resultado?</h2>
@@ -132,13 +132,13 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
               type="number"
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
-              className="w-full text-center text-6xl font-black py-8 border-b-8 border-emerald-200 focus:border-emerald-600 focus:outline-none transition-colors duration-200 bg-transparent text-gray-900"
+              className="w-full text-center text-7xl font-black py-10 border-b-8 border-emerald-200 focus:border-emerald-600 focus:outline-none transition-colors duration-200 bg-transparent text-gray-900"
               placeholder="?"
             />
 
             <button
               type="submit"
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-8 rounded-2xl shadow-xl transition-all duration-200 transform hover:-translate-y-1 active:scale-95 text-xl uppercase tracking-wider"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-6 px-8 rounded-3xl shadow-xl transition-all duration-200 transform hover:-translate-y-1 active:scale-95 text-2xl uppercase tracking-widest"
             >
               Enviar Respuesta
             </button>
@@ -148,7 +148,7 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
             <div className="flex flex-col items-center">
               {isCorrect ? (
                 <>
-                  <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm border border-emerald-50">
+                  <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mb-4 shadow-sm border border-emerald-50">
                     ★
                   </div>
                   <h2 className="text-5xl font-black text-emerald-600 tracking-tight italic uppercase mb-1">¡Fantástico!</h2>
@@ -156,7 +156,7 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
                 </>
               ) : (
                 <>
-                  <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl mb-4 shadow-sm border border-red-50">
+                  <div className="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-3xl mb-4 shadow-sm border border-red-50">
                     ✕
                   </div>
                   <h2 className="text-4xl font-black text-red-600 uppercase mb-1">Revisa tus cuentas</h2>
@@ -164,7 +164,7 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
                     <p className="text-gray-400 font-medium">
                       Tu respuesta: <span className="font-bold text-red-500">{userAnswer}</span>
                     </p>
-                    <p className="text-gray-800 text-xl mt-1">
+                    <p className="text-gray-800 text-2xl mt-1">
                       Correcto: <span className="font-bold text-emerald-600">{problemSet.correctAnswer}</span>
                     </p>
                   </div>
@@ -172,11 +172,11 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
               )}
             </div>
 
-            <div className={`mt-6 p-6 rounded-3xl border w-full max-w-xl mx-auto ${isCorrect ? 'bg-emerald-50/50 border-emerald-100' : 'bg-gray-50 border-gray-100'}`}>
-              <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-3 ${isCorrect ? 'text-emerald-500' : 'text-gray-400'}`}>
+            <div className={`mt-6 p-8 rounded-[2rem] border w-full max-w-xl mx-auto ${isCorrect ? 'bg-emerald-50/50 border-emerald-100' : 'bg-gray-50 border-gray-100'}`}>
+              <p className={`text-xs font-bold uppercase tracking-[0.25em] mb-4 ${isCorrect ? 'text-emerald-500' : 'text-gray-400'}`}>
                 Operación Realizada:
               </p>
-              <p className={`text-2xl md:text-3xl font-black break-words tracking-tight ${isCorrect ? 'text-emerald-900' : 'text-gray-800'}`}>
+              <p className={`text-3xl md:text-4xl font-black break-words tracking-tighter ${isCorrect ? 'text-emerald-900' : 'text-gray-800'}`}>
                 {formatProblemSequence()} = {problemSet.correctAnswer}
               </p>
             </div>
@@ -187,28 +187,28 @@ const ResultView: React.FC<ResultViewProps> = ({ problemSet, onRetry, onFinish, 
               {/* Main action: Next Exercise */}
               <button
                 onClick={onRetry}
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 rounded-2xl shadow-lg transition-all transform hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center space-x-3 text-lg uppercase tracking-wider"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-5 rounded-2xl shadow-lg transition-all transform hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center space-x-3 text-xl uppercase tracking-widest"
               >
                 <span className="text-2xl">🔄</span>
                 <span>Siguiente Ejercicio</span>
               </button>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Upgrade Level button - only if not already advanced */}
-                {canUpgrade && isCorrect ? (
+                {/* Increase Level Button */}
+                {isCorrect && canUpgrade ? (
                   <button
                     onClick={handleUpgrade}
-                    className="bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-4 rounded-2xl transition-all shadow-md hover:-translate-y-1 flex items-center justify-center space-x-2 text-md uppercase tracking-wide"
+                    className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-black py-4 rounded-2xl transition-all shadow-sm border border-emerald-200 hover:-translate-y-1 flex items-center justify-center space-x-2 text-md uppercase tracking-wide"
                   >
                     <span className="text-xl">🚀</span>
                     <span>Aumentar Nivel</span>
                   </button>
                 ) : null}
                 
-                {/* Settings button */}
+                {/* Settings Button */}
                 <button
                   onClick={onFinish}
-                  className={`${(!canUpgrade || !isCorrect) ? 'col-span-2' : ''} bg-gray-50 hover:bg-gray-100 text-gray-600 font-bold py-4 rounded-2xl transition-all shadow-sm border border-gray-100 hover:-translate-y-1 flex items-center justify-center space-x-2 text-md uppercase tracking-wide`}
+                  className={`${(!isCorrect || !canUpgrade) ? 'col-span-2' : ''} bg-gray-50 hover:bg-gray-100 text-gray-600 font-black py-4 rounded-2xl transition-all shadow-sm border border-gray-100 hover:-translate-y-1 flex items-center justify-center space-x-2 text-md uppercase tracking-wide`}
                 >
                   <span className="text-xl opacity-60">⚙️</span>
                   <span>Ajustes</span>

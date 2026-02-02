@@ -49,8 +49,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-50 py-10 px-4">
-      {/* App Header */}
-      <header className={`transition-all duration-300 mb-8 flex flex-col items-center ${gameState === GameState.RUNNING ? 'opacity-20 scale-75' : 'opacity-100'}`}>
+      {/* App Header - Disappears when running */}
+      <header className={`transition-all duration-300 mb-8 flex flex-col items-center ${gameState === GameState.RUNNING ? 'opacity-0 scale-50 pointer-events-none' : 'opacity-100'}`}>
         <div className="flex items-center space-x-4 mb-2">
            <svg width="56" height="40" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-emerald-600 drop-shadow-md border-2 border-emerald-600 rounded-md p-1 bg-white">
              <rect x="0.5" y="0.5" width="23" height="15" rx="1.5" stroke="currentColor" strokeWidth="1.5" />

@@ -37,8 +37,8 @@ const AnzanRunner: React.FC<AnzanRunnerProps> = ({ problemSet, delay, onFinish }
 
   if (currentIndex === -1) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-emerald-600">
-        <h2 className="text-6xl font-black animate-ping tracking-widest">¡LISTO!</h2>
+      <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center text-emerald-600">
+        <h2 className="text-8xl md:text-[12rem] font-black animate-ping tracking-[0.2em]">¡LISTO!</h2>
       </div>
     );
   }
@@ -63,44 +63,55 @@ const AnzanRunner: React.FC<AnzanRunnerProps> = ({ problemSet, delay, onFinish }
   const hintText = getHint(currentNumber, currentOp);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh]">
-      {isPractice && (
-        <div className="mb-8 text-emerald-600 font-bold tracking-widest uppercase text-xs border-b border-emerald-100 pb-2">
-           Práctica de Complementos
+    <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center overflow-hidden animate-fadeIn select-none">
+      {/* Top Metadata Bar */}
+      <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center">
+        <div className="bg-gray-100/80 backdrop-blur-sm px-6 py-2 rounded-full text-gray-500 font-black text-sm tracking-[0.3em] uppercase shadow-sm">
+          PASO {currentIndex + 1} DE {problemSet.numbers.length}
         </div>
-      )}
+        {isPractice && (
+          <div className="bg-emerald-600 text-white px-6 py-2 rounded-full font-black text-sm tracking-[0.1em] uppercase shadow-md">
+            MODO PRÁCTICA
+          </div>
+        )}
+      </div>
 
-      <div className="relative">
-        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-gray-100 px-4 py-1 rounded-full text-gray-500 font-bold text-xs tracking-widest uppercase whitespace-nowrap shadow-sm">
-          Paso {currentIndex + 1} de {problemSet.numbers.length}
-        </div>
-        
-        <div className="flex flex-col items-center justify-center">
-            <div className="flex items-center justify-center space-x-6 md:space-x-10">
-                <div className="w-20 md:w-32 text-right">
-                    {currentOp === '-' && (
-                      <span className="text-7xl md:text-9xl font-black text-red-500 leading-none">-</span>
-                    )}
-                    {(currentOp === '+' || currentOp === 'Initial') && currentIndex > 0 && (
-                      <span className="text-7xl md:text-9xl font-black text-emerald-500 leading-none">+</span>
-                    )}
-                    {(currentOp === 'x' || currentOp === '÷') && (
-                      <span className="text-7xl md:text-8xl font-bold text-emerald-400 leading-none">{currentOp}</span>
-                    )}
-                </div>
-                
-                <span className="text-8xl md:text-[14rem] font-extrabold text-gray-900 anzan-font tracking-tighter leading-none transition-all duration-75">
-                    {currentNumber}
-                </span>
-            </div>
-
-            {showHint && hintText && (
-              <div className="mt-8 bg-emerald-50 text-emerald-700 px-6 py-2 rounded-2xl font-black text-2xl md:text-3xl animate-fadeIn border border-emerald-100 shadow-sm">
-                 {hintText}
-              </div>
+      {/* Massive Number Container */}
+      <div className="flex flex-col items-center justify-center w-full h-full p-4">
+        <div className="flex items-center justify-center space-x-6 md:space-x-12">
+          {/* Operator Display */}
+          <div className="w-[10vw] md:w-[15vw] flex items-center justify-end">
+            {currentOp === '-' && (
+              <span className="text-[12vw] md:text-[18vh] font-black text-red-500 leading-none">-</span>
             )}
+            {(currentOp === '+' || currentOp === 'Initial') && currentIndex > 0 && (
+              <span className="text-[12vw] md:text-[18vh] font-black text-emerald-500 leading-none">+</span>
+            )}
+            {(currentOp === 'x' || currentOp === '÷') && (
+              <span className="text-[10vw] md:text-[15vh] font-bold text-emerald-400 leading-none">{currentOp}</span>
+            )}
+          </div>
+          
+          {/* Huge Numbers */}
+          <div className="flex-1 flex justify-center">
+            <span className="text-[25vw] md:text-[45vh] font-extrabold text-gray-900 anzan-font tracking-tighter leading-none transition-all duration-75 transform scale-110">
+              {currentNumber}
+            </span>
+          </div>
+          
+          {/* Empty spacer for balancing the operator if needed, or keeping it centered */}
+          <div className="w-[10vw] md:w-[15vw]"></div>
         </div>
       </div>
+
+      {/* Bottom Hint Bar */}
+      {showHint && hintText && (
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
+          <div className="bg-emerald-50 text-emerald-700 px-12 py-4 rounded-[2rem] font-black text-4xl md:text-6xl animate-bounceIn border-4 border-emerald-100 shadow-xl">
+             {hintText}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
